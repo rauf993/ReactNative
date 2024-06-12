@@ -28,11 +28,10 @@ const ChatGPT = () => {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-<<<<<<< HEAD
+
             'Authorization': ``, // its my api Key , for segurity i don't put mi api key in my git hub jeje
-=======
-            'Authorization': `Bearer `, // its my api Key , for segurity i don't put mi api key in my git hub jeje
->>>>>>> 7db2c0c4529464642c035066cc42d6f36152cbf9
+  
+          
           },
           body: JSON.stringify(dataToSend),
         });
