@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity } from "react-native";
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 
 
@@ -10,40 +11,38 @@ const ChatGPT = () => {
     const [data, setData] = useState([]);
     const [textInput, setTextInput] = useState('');
 
+const API_KEY = 'AIzaSyAPQf1a-lmtbY4eEoDI-wox7AR5EROyvgw';
 
 
     const handleGenericAPIRequest = async (message) => {
       try {
         if (!message.trim()) return; //if the message is empty  don't do anything
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-        // create a object
-        const dataToSend = {
-          model: "gpt-3.5-turbo",// here i choose the model of chatgpt 
-          messages: [{ role: 'user', content: message }],
-        };
-
-        // i get the dates 
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-
-            'Authorization': ``, // its my api Key , for segurity i don't put mi api key in my git hub jeje
-  
-          
-          },
-          body: JSON.stringify(dataToSend),
+        const chat = model.startChat({
+            history: [
+                {
+                    role: "user",
+                    parts: [{ text: message }],
+                },
+            ],
+            generationConfig: {
+                maxOutputTokens: 100,
+            },
         });
 
-        const completion = await response.json();
-        const answer = completion.choices[0].message.content;
+        const result = await chat.sendMessage(message);
+        const response = await result.response;
+        const text = await response.text();
+        console.log("La respuesta es: " + text);
+      
 
         // in this part i update the dates 
         setData(prevData => [
           ...prevData,
           { type: 'user', content: message },
-          { type: 'CR7', content: answer }
+          { type: 'CR7', content: text }
         ]);
 
         setTextInput('');
