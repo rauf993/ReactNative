@@ -11,7 +11,7 @@ const ChatGPT = () => {
     const [data, setData] = useState([]);
     const [textInput, setTextInput] = useState('');
 
-const API_KEY = 'AIzaSyAPQf1a-lmtbY4eEoDI-wox7AR5EROyvgw';
+const API_KEY = '';
 
 
     const handleGenericAPIRequest = async (message) => {
