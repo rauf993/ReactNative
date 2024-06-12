@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity } from "react-native";
-import axios from "axios"; // Nota: axios no se utiliza, puedes quitarlo si no lo necesitas.
+
+
+
+import axios from "axios"; 
+
 
 const ChatGPT = () => {
     const [data, setData] = useState([]);
@@ -24,7 +28,11 @@ const ChatGPT = () => {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+<<<<<<< HEAD
             'Authorization': ``, // its my api Key , for segurity i don't put mi api key in my git hub jeje
+=======
+            'Authorization': `Bearer `, // its my api Key , for segurity i don't put mi api key in my git hub jeje
+>>>>>>> 7db2c0c4529464642c035066cc42d6f36152cbf9
           },
           body: JSON.stringify(dataToSend),
         });
